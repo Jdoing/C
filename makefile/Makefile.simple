@@ -1,0 +1,40 @@
+#递归展开式定义变量
+Calculator = $(Cal)
+Cal = add.o sub.o mul.o div.o
+
+#直接展开式定义变量
+Main := main.o
+
+#obj = main.o add.o sub.o mul.o div.o
+obj = $(Main) util.o
+
+#变量追加
+obj += $(Calculator)
+
+#目标指定变量CFLAGS
+$(obj) : CFLAGS := -g
+
+#模式指定变量
+%.o : CFLAGS += -O2
+
+calculator : $(obj)
+#echo $(obj)
+	$(cc) $(CFLAGS) -o calculator $(obj)
+
+
+#"clan"是伪目标
+.PHONY : clean
+clean:
+
+#打印输出的时候忽略"@"后的命令
+	@echo "clean environment:"
+
+#"-"表示忽略遇到的error
+	-rm calculator $(obj)
+
+.PHONY : test
+test:
+	@echo "test is: $(host_os)"
+	@echo "$$@ is: $@"
+	@echo "$?"
+include Makefile.housekeeping

@@ -1,0 +1,5 @@
+host_os = $(shell uname -s)
+
+cc = gcc
+
+

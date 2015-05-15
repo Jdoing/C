@@ -1,0 +1,7 @@
+include Makefile.housekeeping
+
+objs := $(patsubst %.c, %.o, $(wildcard *.c))
+
+cal : $(objs)
+	$(cc) -o cal $(objs)
+
